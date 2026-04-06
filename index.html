@@ -18,7 +18,6 @@
       --tag-bg: #1e1b14;
       --radius: 12px;
 
-      /* Done card palette */
       --done-card: #111a14;
       --done-border: #2a4a30;
       --done-head: #0e1a10;
@@ -26,6 +25,11 @@
       --done-accent2: #a8e6b8;
       --done-tag-bg: #0e1a10;
       --done-muted: #5a9068;
+
+      /* Physics accent – steel blue */
+      --phy-accent: #6eaac8;
+      --phy-accent2: #8ecce8;
+      --phy-tag-bg: #111820;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,11 +43,7 @@
     }
 
     /* ── HEADER ── */
-    header {
-      text-align: center;
-      margin-bottom: 64px;
-      position: relative;
-    }
+    header { text-align: center; margin-bottom: 32px; position: relative; }
     header::before {
       content: '';
       display: block;
@@ -53,330 +53,219 @@
       margin: 0 auto 20px;
       opacity: .6;
     }
-    .label {
-      font-size: 11px;
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
+    .label { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 5vw, 3.8rem);
       font-weight: 900;
       line-height: 1.1;
       background: linear-gradient(135deg, var(--accent2), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       margin-bottom: 14px;
     }
-    .subtitle {
-      font-size: 14px;
-      color: var(--muted);
-      letter-spacing: .08em;
-    }
-    .divider {
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 28px auto 0;
-    }
+    .subtitle { font-size: 14px; color: var(--muted); letter-spacing: .08em; }
+    .divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 28px auto 0; }
 
-    /* ── LEGEND ── */
-    .legend {
+    /* ── SUBJECT TABS ── */
+    .subject-tabs {
       display: flex;
-      gap: 20px;
       justify-content: center;
-      margin-bottom: 36px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: .06em;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .legend-dot.done { background: #6fcf8a; }
-    .legend-dot.upcoming { background: var(--accent); }
-
-    /* ── FILTER TABS ── */
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 48px;
-    }
-    .filter-btn {
-      background: var(--card);
+      gap: 0;
+      max-width: 340px;
+      margin: 32px auto 0;
+      background: #141414;
       border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 7px 16px;
       border-radius: 999px;
-      font-size: 12px;
+      padding: 4px;
+    }
+    .subject-tab {
+      flex: 1;
+      padding: 9px 24px;
+      border-radius: 999px;
+      border: none;
       font-family: 'DM Sans', sans-serif;
-      letter-spacing: .06em;
+      font-size: 13px;
+      letter-spacing: .08em;
       cursor: pointer;
-      transition: all .2s;
+      transition: all .25s;
+      color: var(--muted);
+      background: transparent;
     }
-    .filter-btn:hover,
-    .filter-btn.active {
-      border-color: var(--accent);
+    .subject-tab.active-eng {
+      background: linear-gradient(135deg, #2a2010, #1e1b14);
       color: var(--accent);
-      background: var(--tag-bg);
+      border: 1px solid #3a3020;
+    }
+    .subject-tab.active-phy {
+      background: linear-gradient(135deg, #101820, #121a22);
+      color: var(--phy-accent);
+      border: 1px solid #1e3040;
     }
 
-    /* ── GRID ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* ── CARD (default / upcoming) ── */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
+    /* ── INFO BANNER ── */
+    .info-banner {
+      display: flex;
+      justify-content: center;
+      max-width: 520px;
+      margin: 28px auto 0;
       border-radius: var(--radius);
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
+    }
+    .info-banner.eng-banner { background: #1a1810; border: 1px solid #3a3020; }
+    .info-banner.phy-banner { background: #101820; border: 1px solid #1e3040; }
+    .info-cell { flex: 1; padding: 14px 20px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .eng-banner .info-cell + .info-cell { border-left: 1px solid #3a3020; }
+    .phy-banner .info-cell + .info-cell { border-left: 1px solid #1e3040; }
+    .info-cell-icon { font-size: 16px; }
+    .info-cell-label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+    .info-cell-value { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: .04em; }
+    .eng-banner .info-cell-value { color: var(--accent2); }
+    .phy-banner .info-cell-value { color: var(--phy-accent2); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 16px;
+      max-width: 520px; margin: 16px auto 40px; flex-wrap: wrap;
+    }
+    .stat-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 999px; padding: 8px 18px; font-size: 13px;
+    }
+    .stat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .stat-dot.done { background: #6fcf8a; }
+    .stat-dot.upcoming-eng { background: var(--accent); }
+    .stat-dot.upcoming-phy { background: var(--phy-accent); }
+    .stat-dot.total { background: var(--muted); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); min-width: 24px; text-align: center; }
+    .stat-num.done-num { color: #6fcf8a; }
+    .stat-num.upcoming-num-eng { color: var(--accent); }
+    .stat-num.upcoming-num-phy { color: var(--phy-accent); }
+    .stat-label { font-size: 11px; letter-spacing: .08em; color: var(--muted); }
+
+    /* ── LEGEND ── */
+    .legend { display: flex; gap: 20px; justify-content: center; margin-bottom: 28px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); letter-spacing: .06em; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .legend-dot.done { background: #6fcf8a; }
+    .legend-dot.upcoming-eng { background: var(--accent); }
+    .legend-dot.upcoming-phy { background: var(--phy-accent); }
+
+    /* ── FILTER TABS ── */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 48px; }
+    .filter-btn {
+      background: var(--card); border: 1px solid var(--border); color: var(--muted);
+      padding: 7px 16px; border-radius: 999px; font-size: 12px;
+      font-family: 'DM Sans', sans-serif; letter-spacing: .06em;
+      cursor: pointer; transition: all .2s;
+    }
+    .filter-btn.eng-active, .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--tag-bg); }
+    .filter-btn.phy-active { border-color: var(--phy-accent); color: var(--phy-accent); background: var(--phy-tag-bg); }
+
+    /* ── GRID ── */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      display: flex; flex-direction: column;
       transition: transform .25s, border-color .25s, box-shadow .25s;
       animation: fadeUp .5s ease both;
     }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-      box-shadow: 0 16px 40px rgba(200,169,110,.08);
-    }
+    .card:hover { transform: translateY(-4px); }
+    .card.eng-card:hover { border-color: var(--accent); box-shadow: 0 16px 40px rgba(200,169,110,.08); }
+    .card.phy-card:hover { border-color: var(--phy-accent); box-shadow: 0 16px 40px rgba(110,170,200,.08); }
+    .card.done { background: var(--done-card); border-color: var(--done-border); }
+    .card.done:hover { border-color: var(--done-accent); box-shadow: 0 16px 40px rgba(111,207,138,.10); }
+    .card.done .card-head { background: linear-gradient(135deg, #0e1a10, #111e13); border-bottom-color: var(--done-border); }
+    .card.done .team-label { color: var(--done-accent); }
+    .card.done .date-badge .day { color: var(--done-accent); }
+    .card.done .date-badge .month-year { color: var(--done-muted); }
+    .card.done .topic-row { border-bottom-color: var(--done-border); background: rgba(111,207,138,.03); }
+    .card.done .topic-text { color: var(--done-accent2); }
+    .card.done thead tr { background: rgba(111,207,138,.04); }
+    .card.done thead th { color: var(--done-muted); border-bottom-color: var(--done-border); }
+    .card.done tbody tr { border-bottom-color: #182018; }
+    .card.done tbody tr:hover { background: rgba(111,207,138,.04); }
+    .card.done td:first-child { color: var(--done-muted); }
+    .card.done td:last-child { color: var(--done-muted); }
+    .card.done .card-meta { border-top-color: var(--done-border); }
+    .card.done .meta-item { color: var(--done-muted); }
 
-    /* ── CARD (done / presented) ── */
-    .card.done {
-      background: var(--done-card);
-      border-color: var(--done-border);
-    }
-    .card.done:hover {
-      border-color: var(--done-accent);
-      box-shadow: 0 16px 40px rgba(111,207,138,.10);
-    }
-    .card.done .card-head {
-      background: linear-gradient(135deg, #0e1a10, #111e13);
-      border-bottom-color: var(--done-border);
-    }
-    .card.done .team-label {
-      color: var(--done-accent);
-    }
-    .card.done .date-badge .day {
-      color: var(--done-accent);
-    }
-    .card.done .date-badge .month-year {
-      color: var(--done-muted);
-    }
-    .card.done .topic-row {
-      border-bottom-color: var(--done-border);
-      background: rgba(111,207,138,.03);
-    }
-    .card.done .topic-text {
-      color: var(--done-accent2);
-    }
-    .card.done thead tr {
-      background: rgba(111,207,138,.04);
-    }
-    .card.done thead th {
-      color: var(--done-muted);
-      border-bottom-color: var(--done-border);
-    }
-    .card.done tbody tr {
-      border-bottom-color: #182018;
-    }
-    .card.done tbody tr:hover {
-      background: rgba(111,207,138,.04);
-    }
-    .card.done td:first-child {
-      color: var(--done-muted);
-    }
-    .card.done td:last-child {
-      color: var(--done-muted);
-    }
+    /* Physics card head */
+    .phy-card .card-head { background: linear-gradient(135deg, #101820, #111a22); }
+    .phy-card .team-label { color: var(--phy-accent); }
+    .phy-card .date-badge .day { color: var(--phy-accent); }
+    .phy-card .topic-row { background: rgba(110,170,200,.03); }
+    .phy-card .topic-text { color: var(--phy-accent2); }
+    .phy-card thead tr { background: rgba(110,170,200,.05); }
+    .phy-card thead th { color: var(--muted); border-bottom-color: #1e3040; }
 
-    /* Done badge */
     .done-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 9px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--done-accent);
-      background: rgba(111,207,138,.10);
-      border: 1px solid rgba(111,207,138,.2);
-      border-radius: 999px;
-      padding: 3px 9px;
-      margin-top: 6px;
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--done-accent); background: rgba(111,207,138,.10);
+      border: 1px solid rgba(111,207,138,.2); border-radius: 999px;
+      padding: 3px 9px; margin-top: 6px;
     }
-    .done-badge::before {
-      content: '✓';
-      font-size: 10px;
-      font-weight: 700;
-    }
+    .done-badge::before { content: '✓'; font-size: 10px; font-weight: 700; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .card:nth-child(1)  { animation-delay: .03s }
-    .card:nth-child(2)  { animation-delay: .06s }
-    .card:nth-child(3)  { animation-delay: .09s }
-    .card:nth-child(4)  { animation-delay: .12s }
-    .card:nth-child(5)  { animation-delay: .15s }
-    .card:nth-child(6)  { animation-delay: .18s }
-    .card:nth-child(7)  { animation-delay: .21s }
-    .card:nth-child(8)  { animation-delay: .24s }
-    .card:nth-child(9)  { animation-delay: .27s }
-    .card:nth-child(10) { animation-delay: .30s }
-    .card:nth-child(n+11) { animation-delay: .33s }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .card:nth-child(1) { animation-delay:.03s } .card:nth-child(2) { animation-delay:.06s }
+    .card:nth-child(3) { animation-delay:.09s } .card:nth-child(4) { animation-delay:.12s }
+    .card:nth-child(5) { animation-delay:.15s } .card:nth-child(6) { animation-delay:.18s }
+    .card:nth-child(7) { animation-delay:.21s } .card:nth-child(8) { animation-delay:.24s }
+    .card:nth-child(9) { animation-delay:.27s } .card:nth-child(10) { animation-delay:.30s }
+    .card:nth-child(n+11) { animation-delay:.33s }
 
     .card-head {
       background: linear-gradient(135deg, #1e1b14, #1a1810);
-      padding: 20px 22px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
+      padding: 20px 22px 16px; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
     }
-    .team-label {
-      font-size: 10px;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-    .team-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .date-badge {
-      text-align: right;
-      flex-shrink: 0;
-    }
-    .date-badge .day {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .date-badge .month-year {
-      font-size: 10px;
-      letter-spacing: .15em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    .date-badge.tbd .day {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--muted);
-    }
+    .team-label { font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+    .team-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--text); }
+    .date-badge { text-align: right; flex-shrink: 0; }
+    .date-badge .day { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--accent); line-height: 1; }
+    .date-badge .month-year { font-size: 10px; letter-spacing: .15em; color: var(--muted); text-transform: uppercase; }
 
-    .topic-row {
-      padding: 10px 22px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 38px;
-    }
-    .topic-icon {
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .topic-text {
-      font-size: 12px;
-      color: var(--accent2);
-      font-weight: 500;
-      letter-spacing: .04em;
-      font-style: italic;
-    }
-    .topic-text.tbd {
-      color: var(--muted);
-      font-style: normal;
-      font-weight: 300;
-    }
+    .topic-row { padding: 10px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; min-height: 38px; }
+    .topic-icon { font-size: 14px; flex-shrink: 0; }
+    .topic-text { font-size: 12px; color: var(--accent2); font-weight: 500; letter-spacing: .04em; font-style: italic; }
+    .topic-text.tbd { color: var(--muted); font-style: normal; font-weight: 300; }
 
-    /* ── TABLE ── */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    thead tr {
-      background: rgba(200,169,110,.05);
-    }
-    thead th {
-      font-size: 9px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 500;
-      padding: 8px 14px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
+    .card-meta { display: flex; border-top: 1px solid var(--border); margin-top: auto; }
+    .meta-item { flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px 14px; font-size: 11px; color: var(--muted); letter-spacing: .04em; }
+    .meta-item + .meta-item { border-left: 1px solid var(--border); }
+    .meta-icon { font-size: 12px; flex-shrink: 0; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: rgba(200,169,110,.05); }
+    thead th { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 8px 14px; text-align: left; border-bottom: 1px solid var(--border); }
     thead th:last-child { text-align: right; }
-    tbody tr {
-      border-bottom: 1px solid #1f1f1f;
-      transition: background .15s;
-    }
+    tbody tr { border-bottom: 1px solid #1f1f1f; transition: background .15s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: rgba(200,169,110,.04); }
-    td {
-      padding: 9px 14px;
-      font-size: 13px;
-      vertical-align: middle;
-    }
-    td:first-child {
-      color: var(--muted);
-      font-size: 11px;
-      width: 28px;
-      padding-left: 18px;
-    }
+    td { padding: 9px 14px; font-size: 13px; vertical-align: middle; }
+    td:first-child { color: var(--muted); font-size: 11px; width: 28px; padding-left: 18px; }
     td:nth-child(2) { color: var(--text); font-weight: 400; }
-    td:last-child {
-      text-align: right;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: .04em;
-      padding-right: 18px;
-    }
+    td:last-child { text-align: right; font-size: 11px; color: var(--muted); letter-spacing: .04em; padding-right: 18px; }
 
-    /* ── HIDDEN ── */
     .card.hidden { display: none; }
 
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      margin-top: 64px;
-      font-size: 11px;
-      color: #444;
-      letter-spacing: .1em;
-    }
+    /* ── SECTION VISIBILITY ── */
+    .section { display: none; }
+    .section.visible { display: block; }
+
+    footer { text-align: center; margin-top: 64px; font-size: 11px; color: #444; letter-spacing: .1em; }
 
     @media (max-width: 500px) {
       body { padding: 36px 14px 60px; }
       .grid { grid-template-columns: 1fr; }
+      .info-banner { flex-direction: column; }
+      .eng-banner .info-cell + .info-cell,
+      .phy-banner .info-cell + .info-cell { border-left: none; border-top: 1px solid #2a2a2a; }
     }
   </style>
 </head>
@@ -387,672 +276,846 @@
   <h1>Presentation Schedule</h1>
   <p class="subtitle">Section C &nbsp;·&nbsp; All Teams</p>
   <div class="divider"></div>
+
+  <!-- Subject Switcher -->
+  <div class="subject-tabs">
+    <button class="subject-tab active-eng" id="tab-eng" onclick="switchSubject('eng')">📖 English</button>
+    <button class="subject-tab" id="tab-phy" onclick="switchSubject('phy')">⚡ Physics</button>
+  </div>
+
+  <!-- English Banner -->
+  <div class="info-banner eng-banner" id="banner-eng">
+    <div class="info-cell">
+      <span class="info-cell-icon">📍</span>
+      <span class="info-cell-label">Venue</span>
+      <span class="info-cell-value" id="eng-venue-display">Multiple Venues</span>
+    </div>
+    <div class="info-cell">
+      <span class="info-cell-icon">🕑</span>
+      <span class="info-cell-label">Time Slot</span>
+      <span class="info-cell-value" id="eng-time-display">Varies by Date</span>
+    </div>
+  </div>
+
+  <!-- Physics Banner -->
+  <div class="info-banner phy-banner" id="banner-phy" style="display:none">
+    <div class="info-cell">
+      <span class="info-cell-icon">📍</span>
+      <span class="info-cell-label">Venue</span>
+      <span class="info-cell-value" id="phy-venue-display">Room 12</span>
+    </div>
+    <div class="info-cell">
+      <span class="info-cell-icon">🕑</span>
+      <span class="info-cell-label">Time Slot</span>
+      <span class="info-cell-value" id="phy-time-display">Varies by Date</span>
+    </div>
+  </div>
 </header>
 
-<div class="legend">
-  <div class="legend-item">
-    <div class="legend-dot done"></div>
-    <span>Presented</span>
+<!-- ═══════════════════════════════════════════════════
+     ENGLISH SECTION
+     ═══════════════════════════════════════════════════ -->
+<div class="section visible" id="section-eng">
+
+  <div class="stats-bar">
+    <div class="stat-pill"><div class="stat-dot total"></div><span class="stat-num" id="eng-total-count">22</span><span class="stat-label">Total Teams</span></div>
+    <div class="stat-pill"><div class="stat-dot done"></div><span class="stat-num done-num" id="eng-done-count">0</span><span class="stat-label">Presented</span></div>
+    <div class="stat-pill"><div class="stat-dot upcoming-eng"></div><span class="stat-num upcoming-num-eng" id="eng-upcoming-count">22</span><span class="stat-label">Upcoming</span></div>
   </div>
-  <div class="legend-item">
-    <div class="legend-dot upcoming"></div>
-    <span>Upcoming</span>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot done"></div><span>Presented</span></div>
+    <div class="legend-item"><div class="legend-dot upcoming-eng"></div><span>Upcoming</span></div>
   </div>
-</div>
 
-<div class="filters">
-  <button class="filter-btn active" onclick="filter('all', this)">All Teams</button>
-  <button class="filter-btn" onclick="filter('18/03/2026', this)">Mar 18</button>
-  <button class="filter-btn" onclick="filter('25/03/2026', this)">Mar 25</button>
-  <button class="filter-btn" onclick="filter('27/03/2026', this)">Mar 27</button>
-  <button class="filter-btn" onclick="filter('01/04/2026', this)">Apr 01</button>
-  <button class="filter-btn" onclick="filter('02/04/2026', this)">Apr 02</button>
-  <button class="filter-btn" onclick="filter('06/04/2026', this)">Apr 06</button>
-  <button class="filter-btn" onclick="filter('07/04/2026', this)">Apr 07</button>
-  <button class="filter-btn" onclick="filter('08/04/2026', this)">Apr 08</button>
-  <button class="filter-btn" onclick="filter('10/04/2026', this)">Apr 10</button>
-  <button class="filter-btn" onclick="filter('14/04/2026', this)">Apr 14</button>
-  <button class="filter-btn" onclick="filter('15/04/2026', this)">Apr 15</button>
-</div>
+  <div class="filters" id="eng-filters">
+    <button class="filter-btn eng-active" onclick="filter('eng','all',this)">All Teams</button>
+    <button class="filter-btn" onclick="filter('eng','18/03/2026',this)">Mar 18</button>
+    <button class="filter-btn" onclick="filter('eng','25/03/2026',this)">Mar 25</button>
+    <button class="filter-btn" onclick="filter('eng','27/03/2026',this)">Mar 27</button>
+    <button class="filter-btn" onclick="filter('eng','01/04/2026',this)">Apr 01</button>
+    <button class="filter-btn" onclick="filter('eng','02/04/2026',this)">Apr 02</button>
+    <button class="filter-btn" onclick="filter('eng','06/04/2026',this)">Apr 06</button>
+    <button class="filter-btn" onclick="filter('eng','07/04/2026',this)">Apr 07</button>
+    <button class="filter-btn" onclick="filter('eng','08/04/2026',this)">Apr 08</button>
+    <button class="filter-btn" onclick="filter('eng','10/04/2026',this)">Apr 10</button>
+    <button class="filter-btn" onclick="filter('eng','14/04/2026',this)">Apr 14</button>
+    <button class="filter-btn" onclick="filter('eng','15/04/2026',this)">Apr 15</button>
+  </div>
 
-<div class="grid" id="grid">
+  <div class="grid" id="eng-grid">
 
-  <!-- TEAM 1 -->
-  <div class="card" data-date="08/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 1</div>
-        <div class="team-title">Team One</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">08</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Sustainable Development</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 1 -->
+    <div class="card eng-card" data-date="08/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 1</div><div class="team-title">Team One</div></div>
+        <div class="date-badge"><div class="day">08</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Sustainable Development</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Anuj Thakur</td><td>250102026</td></tr>
         <tr><td>2</td><td>Medhaj Chopade</td><td>250104029</td></tr>
         <tr><td>3</td><td>Deepesh Patel</td><td>250102022</td></tr>
         <tr><td>4</td><td>Devansh Raghav</td><td>250104033</td></tr>
         <tr><td>5</td><td>Abhishek Kannaujiya</td><td>250102021</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 2 -->
-  <div class="card" data-date="08/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 2</div>
-        <div class="team-title">Team Two</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">08</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Echoes of the Fallen</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 2 -->
+    <div class="card eng-card" data-date="08/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 2</div><div class="team-title">Team Two</div></div>
+        <div class="date-badge"><div class="day">08</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Echoes of the Fallen</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Shashwat Raj</td><td>250104003</td></tr>
         <tr><td>2</td><td>Shubham Swaraj</td><td>250102008</td></tr>
         <tr><td>3</td><td>Pritam Saha</td><td>250102001</td></tr>
         <tr><td>4</td><td>Abhay</td><td>250102014</td></tr>
         <tr><td>5</td><td>Kartikay Raj</td><td>250104012</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 3 -->
-  <div class="card" data-date="01/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 3</div>
-        <div class="team-title">Team Three</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">01</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">📌</span>
-      <span class="topic-text tbd">Topic not assigned</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 3 -->
+    <div class="card eng-card" data-date="01/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 3</div><div class="team-title">Team Three</div></div>
+        <div class="date-badge"><div class="day">01</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">📌</span><span class="topic-text tbd">Topic not assigned</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Pranavi Pathak</td><td>250102035</td></tr>
         <tr><td>2</td><td>Smruti Sudha Sahu</td><td>250102037</td></tr>
         <tr><td>3</td><td>Anupriya</td><td>250104031</td></tr>
         <tr><td>4</td><td>Shiwani Anand</td><td>250104041</td></tr>
         <tr><td>5</td><td>Shubhra</td><td>250102028</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 4 — presented Mar 18, done ✓ -->
-  <div class="card done" data-date="18/03/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 4</div>
-        <div class="team-title">Team Four</div>
-        <div class="done-badge">Presented</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">18</div>
-        <div class="month-year">Mar 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Importance of Make in India</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 4 — done -->
+    <div class="card eng-card done" data-date="18/03/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 4</div><div class="team-title">Team Four</div><div class="done-badge">Presented</div></div>
+        <div class="date-badge"><div class="day">18</div><div class="month-year">Mar 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Importance of Make in India</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Abhishek</td><td>250106043</td></tr>
         <tr><td>2</td><td>Vansh Kumar</td><td>250102023</td></tr>
         <tr><td>3</td><td>Krishnanand Singh</td><td>250102025</td></tr>
         <tr><td>4</td><td>Aditya Maurya</td><td>250104024</td></tr>
         <tr><td>5</td><td>Ayushman</td><td>250104025</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 5 -->
-  <div class="card" data-date="10/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 5</div>
-        <div class="team-title">Team Five</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">10</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">F1 – Formula One</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 5 -->
+    <div class="card eng-card" data-date="10/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 5</div><div class="team-title">Team Five</div></div>
+        <div class="date-badge"><div class="day">10</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">F1 – Formula One</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Krishnan</td><td>250102041</td></tr>
         <tr><td>2</td><td>Vedant</td><td>250102027</td></tr>
         <tr><td>3</td><td>Akilandeswari</td><td>250102042</td></tr>
         <tr><td>4</td><td>Unnath</td><td>250104047</td></tr>
         <tr><td>5</td><td>Reethu</td><td>250102043</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 6 — presented Mar 27 — today is Mar 26, still upcoming -->
-  <div class="card" data-date="27/03/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 6</div>
-        <div class="team-title">Team Six</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">27</div>
-        <div class="month-year">Mar 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">20th century in a nutshell</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 6 -->
+    <div class="card eng-card" data-date="27/03/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 6</div><div class="team-title">Team Six</div></div>
+        <div class="date-badge"><div class="day">27</div><div class="month-year">Mar 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">20th century in a nutshell</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Kapil</td><td>250104014</td></tr>
         <tr><td>2</td><td>Rounak Kumar</td><td>250104018</td></tr>
         <tr><td>3</td><td>Pavan Kumar Reddy</td><td>250104019</td></tr>
         <tr><td>4</td><td>Fazal Abbas</td><td>250102019</td></tr>
         <tr><td>5</td><td>Pedada Ravindra</td><td>250104017</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 7 -->
-  <div class="card" data-date="06/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 7</div>
-        <div class="team-title">Team Seven</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">06</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Cricket</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 7 -->
+    <div class="card eng-card" data-date="06/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 7</div><div class="team-title">Team Seven</div></div>
+        <div class="date-badge"><div class="day">06</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Cricket</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>M. Pavan</td><td>250106036</td></tr>
         <tr><td>2</td><td>M. Aditya</td><td>250104044</td></tr>
         <tr><td>3</td><td>Sathwik</td><td>250104026</td></tr>
         <tr><td>4</td><td>Swarith</td><td>250104046</td></tr>
         <tr><td>5</td><td>Murali</td><td>250104056</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 8 -->
-  <div class="card" data-date="27/03/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 8</div>
-        <div class="team-title">Team Eight</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">27</div>
-        <div class="month-year">Mar 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">📌</span>
-      <span class="topic-text tbd">Topic not assigned</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 8 -->
+    <div class="card eng-card" data-date="27/03/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 8</div><div class="team-title">Team Eight</div></div>
+        <div class="date-badge"><div class="day">27</div><div class="month-year">Mar 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">📌</span><span class="topic-text tbd">Topic not assigned</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Devarakonda Rishi</td><td>250102057</td></tr>
         <tr><td>2</td><td>Harsh Kumar Verma</td><td>250102055</td></tr>
         <tr><td>3</td><td>Ram Charan</td><td>250106044</td></tr>
         <tr><td>4</td><td>Gagan Vihari</td><td>250102056</td></tr>
         <tr><td>5</td><td>Guru Ganesh</td><td>250104039</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 9 -->
-  <div class="card" data-date="07/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 9</div>
-        <div class="team-title">Team Nine</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">07</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Art of Observation</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 9 -->
+    <div class="card eng-card" data-date="07/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 9</div><div class="team-title">Team Nine</div></div>
+        <div class="date-badge"><div class="day">07</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Art of Observation</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Bibaswan Sarkar</td><td>250106033</td></tr>
         <tr><td>2</td><td>Dipali</td><td>250104048</td></tr>
         <tr><td>3</td><td>Shaloni Gupta</td><td>250104020</td></tr>
         <tr><td>4</td><td>Ananya</td><td>250102030</td></tr>
         <tr><td>5</td><td>Lithika</td><td>250104005</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 10 -->
-  <div class="card" data-date="01/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 10</div>
-        <div class="team-title">Team Ten</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">01</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">The Psychology Behind Procrastination</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 10 -->
+    <div class="card eng-card" data-date="01/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 10</div><div class="team-title">Team Ten</div></div>
+        <div class="date-badge"><div class="day">01</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">The Psychology Behind Procrastination</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Priyanshu Rana</td><td>250104022</td></tr>
         <tr><td>2</td><td>Sonu Kumar</td><td>250104008</td></tr>
         <tr><td>3</td><td>Jasveer</td><td>250102016</td></tr>
         <tr><td>4</td><td>Ankit</td><td>250102017</td></tr>
         <tr><td>5</td><td>Nikhil Nishant</td><td>250104002</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 11 -->
-  <div class="card" data-date="07/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 11</div>
-        <div class="team-title">Team Eleven</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">07</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Ed-Tech</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 11 -->
+    <div class="card eng-card" data-date="07/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 11</div><div class="team-title">Team Eleven</div></div>
+        <div class="date-badge"><div class="day">07</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Ed-Tech</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>MD Shihab Sarwar</td><td>250104009</td></tr>
         <tr><td>2</td><td>Abhay Ghosh</td><td>250102009</td></tr>
         <tr><td>3</td><td>Abhinav Jha</td><td>250104028</td></tr>
         <tr><td>4</td><td>Shishir Kumar</td><td>250104038</td></tr>
         <tr><td>5</td><td>Jaydeep Soni</td><td>250104006</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 12 -->
-  <div class="card" data-date="08/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 12</div>
-        <div class="team-title">Team Twelve</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">08</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">📌</span>
-      <span class="topic-text tbd">Topic not assigned</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 12 -->
+    <div class="card eng-card" data-date="08/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 12</div><div class="team-title">Team Twelve</div></div>
+        <div class="date-badge"><div class="day">08</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">📌</span><span class="topic-text tbd">Topic not assigned</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Yash Jagadale</td><td>250104058</td></tr>
         <tr><td>2</td><td>Sashi Prasad</td><td>250104010</td></tr>
         <tr><td>3</td><td>Yash Patil</td><td>250104004</td></tr>
         <tr><td>4</td><td>Ayush Kumar</td><td>250102002</td></tr>
         <tr><td>5</td><td>Aditya Gogoi</td><td>250102012</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 13 -->
-  <div class="card" data-date="02/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 13</div>
-        <div class="team-title">Team Thirteen</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">02</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">IoT – Internet of Things</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 13 -->
+    <div class="card eng-card" data-date="02/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 13</div><div class="team-title">Team Thirteen</div></div>
+        <div class="date-badge"><div class="day">02</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">IoT – Internet of Things</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Agam Tripathi</td><td>250104023</td></tr>
         <tr><td>2</td><td>Manjay Mirnal</td><td>250102013</td></tr>
         <tr><td>3</td><td>Debasish Gorain</td><td>250104021</td></tr>
         <tr><td>4</td><td>Lakshay Dubey</td><td>250102015</td></tr>
         <tr><td>5</td><td>Priyanshu Kumar Singh</td><td>250102010</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 14 -->
-  <div class="card" data-date="10/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 14</div>
-        <div class="team-title">Team Fourteen</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">10</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Current Geopolitics</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 14 -->
+    <div class="card eng-card" data-date="10/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 14</div><div class="team-title">Team Fourteen</div></div>
+        <div class="date-badge"><div class="day">10</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Current Geopolitics</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Aman Singh</td><td>250104045</td></tr>
         <tr><td>2</td><td>Divyanshu Yadav</td><td>250102044</td></tr>
         <tr><td>3</td><td>Praneet Mandula</td><td>250106032</td></tr>
         <tr><td>4</td><td>Kriti Raj</td><td>250102046</td></tr>
         <tr><td>5</td><td>Shanu Baghel</td><td>250104051</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 15 -->
-  <div class="card" data-date="06/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 15</div>
-        <div class="team-title">Team Fifteen</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">06</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">The Evolution of Indian cinema</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 15 -->
+    <div class="card eng-card" data-date="06/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 15</div><div class="team-title">Team Fifteen</div></div>
+        <div class="date-badge"><div class="day">06</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">The Evolution of Indian cinema</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Ankit Yadav</td><td>250104053</td></tr>
         <tr><td>2</td><td>Nayem Sarkar</td><td>250104052</td></tr>
         <tr><td>3</td><td>Ashish Kumar</td><td>250106042</td></tr>
         <tr><td>4</td><td>Tanmay Jasu</td><td>250102053</td></tr>
         <tr><td>5</td><td>Ashutosh Mehta</td><td>250102052</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 16 -->
-  <div class="card" data-date="14/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 16</div>
-        <div class="team-title">Team Sixteen</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">14</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Cricket</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 16 -->
+    <div class="card eng-card" data-date="14/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 16</div><div class="team-title">Team Sixteen</div></div>
+        <div class="date-badge"><div class="day">14</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Cricket</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Ajay</td><td>250102054</td></tr>
         <tr><td>2</td><td>Karthik</td><td>250102007</td></tr>
         <tr><td>3</td><td>Vamshi</td><td>250104057</td></tr>
         <tr><td>4</td><td>Jai Prakash</td><td>250106040</td></tr>
         <tr><td>5</td><td>Prashanth</td><td>250102058</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 17 -->
-  <div class="card" data-date="14/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 17</div>
-        <div class="team-title">Team Seventeen</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">14</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">North East India: Gateway to southeast Asia</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 17 -->
+    <div class="card eng-card" data-date="14/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 17</div><div class="team-title">Team Seventeen</div></div>
+        <div class="date-badge"><div class="day">14</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">North East India: Gateway to southeast Asia</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Manjeet Saini</td><td>250102038</td></tr>
         <tr><td>2</td><td>Alok Kumar</td><td>250102040</td></tr>
         <tr><td>3</td><td>P. K. Yadav</td><td>250106039</td></tr>
         <tr><td>4</td><td>Sahil Kumar</td><td>250106037</td></tr>
         <tr><td>5</td><td>Shashank Mishra</td><td>250102039</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 18 -->
-  <div class="card" data-date="15/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 18</div>
-        <div class="team-title">Team Eighteen</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">15</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Electric Vehicle (EV)</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 18 -->
+    <div class="card eng-card" data-date="15/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 18</div><div class="team-title">Team Eighteen</div></div>
+        <div class="date-badge"><div class="day">15</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Electric Vehicle (EV)</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Ankush</td><td>250104043</td></tr>
         <tr><td>2</td><td>Prince</td><td>250102045</td></tr>
         <tr><td>3</td><td>Rajnish</td><td>250102034</td></tr>
         <tr><td>4</td><td>Utkarsh</td><td>250102036</td></tr>
         <tr><td>5</td><td>Gaurav</td><td>250104042</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 19 -->
-  <div class="card" data-date="07/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 19</div>
-        <div class="team-title">Team Nineteen</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">07</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Paradox of Choice</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 19 -->
+    <div class="card eng-card" data-date="07/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 19</div><div class="team-title">Team Nineteen</div></div>
+        <div class="date-badge"><div class="day">07</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Paradox of Choice</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Siddhi</td><td>250104030</td></tr>
         <tr><td>2</td><td>Palak</td><td>250102020</td></tr>
         <tr><td>3</td><td>Shivani</td><td>250102051</td></tr>
         <tr><td>4</td><td>Anamika</td><td>250102049</td></tr>
         <tr><td>5</td><td>Anshu</td><td>250104015</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 20 -->
-  <div class="card" data-date="15/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 20</div>
-        <div class="team-title">Team Twenty</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">15</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Imagination</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 20 -->
+    <div class="card eng-card" data-date="15/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 20</div><div class="team-title">Team Twenty</div></div>
+        <div class="date-badge"><div class="day">15</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Imagination</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Chintu Kumar</td><td>250102033</td></tr>
         <tr><td>2</td><td>Nitish Kumar</td><td>250102048</td></tr>
         <tr><td>3</td><td>Justin Lakra</td><td>250104040</td></tr>
         <tr><td>4</td><td>Shivam Kumar</td><td>250104011</td></tr>
         <tr><td>5</td><td>Praveen Kumar</td><td>250106035</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 21 -->
-  <div class="card" data-date="15/04/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 21</div>
-        <div class="team-title">Team Twenty-One</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">15</div>
-        <div class="month-year">Apr 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">📌</span>
-      <span class="topic-text tbd">Topic not assigned</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 21 -->
+    <div class="card eng-card" data-date="15/04/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 21</div><div class="team-title">Team Twenty-One</div></div>
+        <div class="date-badge"><div class="day">15</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">📌</span><span class="topic-text tbd">Topic not assigned</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Arun Pal</td><td>250102005</td></tr>
         <tr><td>2</td><td>Rajesh Rawat</td><td>250102011</td></tr>
         <tr><td>3</td><td>Pooja</td><td>250102006</td></tr>
         <tr><td>4</td><td>Rohit Kumar</td><td>250102050</td></tr>
         <tr><td>5</td><td>Likesh Patel</td><td>250104034</td></tr>
-      </tbody>
-    </table>
-  </div>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
 
-  <!-- TEAM 22 — presented Mar 25, done ✓ -->
-  <div class="card done" data-date="25/03/2026">
-    <div class="card-head">
-      <div>
-        <div class="team-label">Team 22</div>
-        <div class="team-title">Team Twenty-Two</div>
-        <div class="done-badge">Presented</div>
-      </div>
-      <div class="date-badge">
-        <div class="day">25</div>
-        <div class="month-year">Mar 2026</div>
-      </div>
-    </div>
-    <div class="topic-row">
-      <span class="topic-icon">🎯</span>
-      <span class="topic-text">Silicon Shift: From Bytes to Brains</span>
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead>
-      <tbody>
+    <!-- TEAM 22 — done -->
+    <div class="card eng-card done" data-date="25/03/2026" data-subject="eng">
+      <div class="card-head"><div><div class="team-label">Team 22</div><div class="team-title">Team Twenty-Two</div><div class="done-badge">Presented</div></div>
+        <div class="date-badge"><div class="day">25</div><div class="month-year">Mar 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">🎯</span><span class="topic-text">Silicon Shift: From Bytes to Brains</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
         <tr><td>1</td><td>Anurag Kumar</td><td>250102029</td></tr>
         <tr><td>2</td><td>Karan Kumar</td><td>250104032</td></tr>
         <tr><td>3</td><td>Shashank Upmanyu</td><td>250102031</td></tr>
         <tr><td>4</td><td>Gaurav Singh Chandel</td><td>250102032</td></tr>
         <tr><td>5</td><td>Pratit Kumar</td><td>250104035</td></tr>
-      </tbody>
-    </table>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+  </div><!-- end eng-grid -->
+</div><!-- end section-eng -->
+
+
+<!-- ═══════════════════════════════════════════════════
+     PHYSICS SECTION
+     ═══════════════════════════════════════════════════ -->
+<div class="section" id="section-phy">
+
+  <div class="stats-bar">
+    <div class="stat-pill"><div class="stat-dot total"></div><span class="stat-num" id="phy-total-count">23</span><span class="stat-label">Total Teams</span></div>
+    <div class="stat-pill"><div class="stat-dot done"></div><span class="stat-num done-num" id="phy-done-count">0</span><span class="stat-label">Presented</span></div>
+    <div class="stat-pill"><div class="stat-dot upcoming-phy"></div><span class="stat-num upcoming-num-phy" id="phy-upcoming-count">23</span><span class="stat-label">Upcoming</span></div>
   </div>
 
-</div><!-- /grid -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot done"></div><span>Presented</span></div>
+    <div class="legend-item"><div class="legend-dot upcoming-phy"></div><span>Upcoming</span></div>
+  </div>
 
-<footer>Section C &nbsp;·&nbsp; Presentation Schedule 2026 &nbsp;·&nbsp; 22 Teams</footer>
+  <div class="filters" id="phy-filters">
+    <button class="filter-btn phy-active" onclick="filter('phy','all',this)">All Teams</button>
+    <button class="filter-btn" onclick="filter('phy','09/04/2026',this)">Apr 09</button>
+    <button class="filter-btn" onclick="filter('phy','10/04/2026',this)">Apr 10</button>
+    <button class="filter-btn" onclick="filter('phy','14/04/2026',this)">Apr 14</button>
+    <button class="filter-btn" onclick="filter('phy','15/04/2026',this)">Apr 15</button>
+    <button class="filter-btn" onclick="filter('phy','16/04/2026',this)">Apr 16</button>
+    <button class="filter-btn" onclick="filter('phy','17/04/2026',this)">Apr 17</button>
+  </div>
+
+  <div class="grid" id="phy-grid">
+
+    <!-- PHY TEAM 1 -->
+    <div class="card phy-card" data-date="09/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 1</div><div class="team-title">Team One</div></div>
+        <div class="date-badge"><div class="day">09</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Self and Mutual Inductance</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Sanket Sunil Singh</td><td>250104016</td></tr>
+        <tr><td>2</td><td>Siddhi Singh Rajput</td><td>250104030</td></tr>
+        <tr><td>3</td><td>Kapil</td><td>250104014</td></tr>
+        <tr><td>4</td><td>Abhay Ghosh</td><td>250102009</td></tr>
+        <tr><td>5</td><td>Guru Ganesh</td><td>250104039</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 2 -->
+    <div class="card phy-card" data-date="09/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 2</div><div class="team-title">Team Two</div></div>
+        <div class="date-badge"><div class="day">09</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Maxwell's Equations</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Bibaswan Sarkar</td><td>250106033</td></tr>
+        <tr><td>2</td><td>Dipali</td><td>250104048</td></tr>
+        <tr><td>3</td><td>Shaloni Gupta</td><td>250104020</td></tr>
+        <tr><td>4</td><td>Ananya Anand</td><td>250102030</td></tr>
+        <tr><td>5</td><td>Lithikha</td><td>250104005</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 3 -->
+    <div class="card phy-card" data-date="09/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 3</div><div class="team-title">Team Three</div></div>
+        <div class="date-badge"><div class="day">09</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Poynting Theorem</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Chintu Kumar</td><td>250102033</td></tr>
+        <tr><td>2</td><td>Nitish Kumar</td><td>250102048</td></tr>
+        <tr><td>3</td><td>Justin Lakra</td><td>250104040</td></tr>
+        <tr><td>4</td><td>Shivam Kumar</td><td>250104011</td></tr>
+        <tr><td>5</td><td>Yash Jagadale</td><td>250104058</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 4 -->
+    <div class="card phy-card" data-date="10/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 4</div><div class="team-title">Team Four</div></div>
+        <div class="date-badge"><div class="day">10</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Motional EMF</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Fazal Abbas</td><td>250102019</td></tr>
+        <tr><td>2</td><td>Rounak Kumar</td><td>250104018</td></tr>
+        <tr><td>3</td><td>Pavan Kumar</td><td>250104019</td></tr>
+        <tr><td>4</td><td>Aryan Goswami</td><td>250102018</td></tr>
+        <tr><td>5</td><td>Pedada Ravindra</td><td>250104017</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 5 -->
+    <div class="card phy-card" data-date="10/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 5</div><div class="team-title">Team Five</div></div>
+        <div class="date-badge"><div class="day">10</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Motional EMF</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Anuj Thakur</td><td>250102026</td></tr>
+        <tr><td>2</td><td>Prateek</td><td>250102024</td></tr>
+        <tr><td>3</td><td>Vansh Kumar</td><td>250102023</td></tr>
+        <tr><td>4</td><td>Aditya Maurya</td><td>250104024</td></tr>
+        <tr><td>5</td><td>Ayushman</td><td>250104025</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 6 -->
+    <div class="card phy-card" data-date="10/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 6</div><div class="team-title">Team Six</div></div>
+        <div class="date-badge"><div class="day">10</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Faraday's Law</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Polavarapu Radha Krishna</td><td>250102004</td></tr>
+        <tr><td>2</td><td>Nenavath Ram Charan</td><td>250106044</td></tr>
+        <tr><td>3</td><td>Harsh Kumar Verma</td><td>250102055</td></tr>
+        <tr><td>4</td><td>Devarakonda Rishi Kumar</td><td>250102057</td></tr>
+        <tr><td>5</td><td>Sajja Gagan Vihari</td><td>250102056</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 7 -->
+    <div class="card phy-card" data-date="10/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 7</div><div class="team-title">Team Seven</div></div>
+        <div class="date-badge"><div class="day">10</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Lenz's Law</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Shashank Upmanyu</td><td>250102031</td></tr>
+        <tr><td>2</td><td>Gaurav Singh Chandel</td><td>250102032</td></tr>
+        <tr><td>3</td><td>Lucky Singh</td><td>250104036</td></tr>
+        <tr><td>4</td><td>Pratit Kumar</td><td>250104035</td></tr>
+        <tr><td>5</td><td>Anurag Kumar</td><td>250102029</td></tr>
+        <tr><td>6</td><td>Karan Kumar</td><td>250104032</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 8 -->
+    <div class="card phy-card" data-date="14/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 8</div><div class="team-title">Team Eight</div></div>
+        <div class="date-badge"><div class="day">14</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Polarization of EM Waves</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Agam Tripathi</td><td>250104023</td></tr>
+        <tr><td>2</td><td>Manjay Mirnal</td><td>250102013</td></tr>
+        <tr><td>3</td><td>Debasish Gorain</td><td>250104021</td></tr>
+        <tr><td>4</td><td>Lakshay Dubey</td><td>250102015</td></tr>
+        <tr><td>5</td><td>Priyanshu Kumar Singh</td><td>250102010</td></tr>
+        <tr><td>6</td><td>Karthikay Raj</td><td>250104012</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 9 -->
+    <div class="card phy-card" data-date="14/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 9</div><div class="team-title">Team Nine</div></div>
+        <div class="date-badge"><div class="day">14</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Self and Mutual Inductance</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Krishnan</td><td>250102041</td></tr>
+        <tr><td>2</td><td>Unnath</td><td>250104047</td></tr>
+        <tr><td>3</td><td>Vedant</td><td>250102027</td></tr>
+        <tr><td>4</td><td>Sakshi</td><td>250104049</td></tr>
+        <tr><td>5</td><td>Akilandeswari</td><td>250102042</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 10 -->
+    <div class="card phy-card" data-date="14/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 10</div><div class="team-title">Team Ten</div></div>
+        <div class="date-badge"><div class="day">14</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Energy Stored in Magnetic Field</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Priyanshu Rana</td><td>250104022</td></tr>
+        <tr><td>2</td><td>Sonu Kumar</td><td>250104008</td></tr>
+        <tr><td>3</td><td>Jasveer Singh</td><td>250102016</td></tr>
+        <tr><td>4</td><td>Ankit Yadav</td><td>250102017</td></tr>
+        <tr><td>5</td><td>Nikhil Nishant</td><td>250104002</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 11 -->
+    <div class="card phy-card" data-date="14/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 11</div><div class="team-title">Team Eleven</div></div>
+        <div class="date-badge"><div class="day">14</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Poynting Theorem</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Deepesh Patel</td><td>250102022</td></tr>
+        <tr><td>2</td><td>Medhaj Chopade</td><td>250104029</td></tr>
+        <tr><td>3</td><td>Abhishek Kannaujiya</td><td>250102021</td></tr>
+        <tr><td>4</td><td>Devansh Raghav</td><td>250104033</td></tr>
+        <tr><td>5</td><td>Shishir Kumar</td><td>250104038</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 12 -->
+    <div class="card phy-card" data-date="15/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 12</div><div class="team-title">Team Twelve</div></div>
+        <div class="date-badge"><div class="day">15</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Lenz's Law</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Pranavi Pathak</td><td>250102035</td></tr>
+        <tr><td>2</td><td>Smruti Sudha Sahu</td><td>250102037</td></tr>
+        <tr><td>3</td><td>Anupriya</td><td>250104031</td></tr>
+        <tr><td>4</td><td>Varenyam Tiwari</td><td>250104027</td></tr>
+        <tr><td>5</td><td>Shashwat Raj</td><td>250104003</td></tr>
+        <tr><td>6</td><td>Shivani Singh</td><td>250102051</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 13 -->
+    <div class="card phy-card" data-date="15/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 13</div><div class="team-title">Team Thirteen</div></div>
+        <div class="date-badge"><div class="day">15</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Energy Stored in Magnetic Field</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>M. Pavan</td><td>250106036</td></tr>
+        <tr><td>2</td><td>M. Aditya</td><td>250104044</td></tr>
+        <tr><td>3</td><td>Sathwik</td><td>250104026</td></tr>
+        <tr><td>4</td><td>Swarith</td><td>250104046</td></tr>
+        <tr><td>5</td><td>Murali</td><td>250104056</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 14 -->
+    <div class="card phy-card" data-date="15/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 14</div><div class="team-title">Team Fourteen</div></div>
+        <div class="date-badge"><div class="day">15</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Continuity Equation</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Shashank Mishra</td><td>250102039</td></tr>
+        <tr><td>2</td><td>Sahil Yadav</td><td>250106037</td></tr>
+        <tr><td>3</td><td>P. K. Yadav</td><td>250106039</td></tr>
+        <tr><td>4</td><td>Alok Kumar</td><td>250102040</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 15 -->
+    <div class="card phy-card" data-date="15/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 15</div><div class="team-title">Team Fifteen</div></div>
+        <div class="date-badge"><div class="day">15</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Polarization of EM Waves</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Aditya Gogoi</td><td>250102012</td></tr>
+        <tr><td>2</td><td>Ayush Kumar</td><td>250102002</td></tr>
+        <tr><td>3</td><td>Rohit Kumar</td><td>250102050</td></tr>
+        <tr><td>4</td><td>Yash Patil</td><td>250104004</td></tr>
+        <tr><td>5</td><td>Sashi Prasad</td><td>250104010</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 16 -->
+    <div class="card phy-card" data-date="16/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 16</div><div class="team-title">Team Sixteen</div></div>
+        <div class="date-badge"><div class="day">16</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Maxwell's Equations</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Uktha Singh</td><td>250102003</td></tr>
+        <tr><td>2</td><td>Palak Verma</td><td>250102020</td></tr>
+        <tr><td>3</td><td>Puja</td><td>250102006</td></tr>
+        <tr><td>4</td><td>Anamika Kumari</td><td>250102049</td></tr>
+        <tr><td>5</td><td>Anshu Yadav</td><td>250104015</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 17 -->
+    <div class="card phy-card" data-date="16/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 17</div><div class="team-title">Team Seventeen</div></div>
+        <div class="date-badge"><div class="day">16</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Reflection of EM Waves</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Shubhra Jyothsna S. Addoor</td><td>250102028</td></tr>
+        <tr><td>2</td><td>Shiwani Anand</td><td>250104041</td></tr>
+        <tr><td>3</td><td>Guguloth Reethu</td><td>250102043</td></tr>
+        <tr><td>4</td><td>Shubham Swaraj</td><td>250102008</td></tr>
+        <tr><td>5</td><td>Abhay</td><td>250102014</td></tr>
+        <tr><td>6</td><td>Pritam Saha</td><td>250102001</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 18 -->
+    <div class="card phy-card" data-date="16/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 18</div><div class="team-title">Team Eighteen</div></div>
+        <div class="date-badge"><div class="day">16</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Wave Solution of Maxwell's Equations</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Arun Pal</td><td>250102005</td></tr>
+        <tr><td>2</td><td>Rajesh Rawat</td><td>250102011</td></tr>
+        <tr><td>3</td><td>Aarya Jaiswal</td><td>250104007</td></tr>
+        <tr><td>4</td><td>Likesh Patel</td><td>250104034</td></tr>
+        <tr><td>5</td><td>Manjeet Saini</td><td>250102038</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 19 -->
+    <div class="card phy-card" data-date="16/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 19</div><div class="team-title">Team Nineteen</div></div>
+        <div class="date-badge"><div class="day">16</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Ohm's Law</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Ajay</td><td>250102054</td></tr>
+        <tr><td>2</td><td>Karthik</td><td>250102007</td></tr>
+        <tr><td>3</td><td>Jay Prakash</td><td>250106040</td></tr>
+        <tr><td>4</td><td>Prashant</td><td>250102058</td></tr>
+        <tr><td>5</td><td>Vamshi</td><td>250104057</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 20 -->
+    <div class="card phy-card" data-date="17/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 20</div><div class="team-title">Team Twenty</div></div>
+        <div class="date-badge"><div class="day">17</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Ohm's Law</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Utkarsh</td><td>250102035</td></tr>
+        <tr><td>2</td><td>Ankush</td><td>250104043</td></tr>
+        <tr><td>3</td><td>Prince</td><td>250102045</td></tr>
+        <tr><td>4</td><td>Rajnish</td><td>250102034</td></tr>
+        <tr><td>5</td><td>Gaurav</td><td>250104042</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 21 -->
+    <div class="card phy-card" data-date="17/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 21</div><div class="team-title">Team Twenty-One</div></div>
+        <div class="date-badge"><div class="day">17</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Faraday's Law</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Shanu Baghel</td><td>250104051</td></tr>
+        <tr><td>2</td><td>Keshav Kumar Rathi</td><td>250104050</td></tr>
+        <tr><td>3</td><td>Aman Singh</td><td>250104045</td></tr>
+        <tr><td>4</td><td>Divyanshu Kumar</td><td>250102044</td></tr>
+        <tr><td>5</td><td>Praneet Mandula</td><td>250106032</td></tr>
+        <tr><td>6</td><td>Kriti Raj</td><td>250102046</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 22 -->
+    <div class="card phy-card" data-date="17/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 22</div><div class="team-title">Team Twenty-Two</div></div>
+        <div class="date-badge"><div class="day">17</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Continuity Equation</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>MD Shihab Sarwar</td><td>250104009</td></tr>
+        <tr><td>2</td><td>Abhinav Jha</td><td>250104028</td></tr>
+        <tr><td>3</td><td>Alok Singh</td><td>250104013</td></tr>
+        <tr><td>4</td><td>Suyash Chaturvedi</td><td>250104001</td></tr>
+        <tr><td>5</td><td>Jaydeep Soni</td><td>250104006</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+    <!-- PHY TEAM 23 -->
+    <div class="card phy-card" data-date="17/04/2026" data-subject="phy">
+      <div class="card-head"><div><div class="team-label">Team 23</div><div class="team-title">Team Twenty-Three</div></div>
+        <div class="date-badge"><div class="day">17</div><div class="month-year">Apr 2026</div></div></div>
+      <div class="topic-row"><span class="topic-icon">⚡</span><span class="topic-text">Reflection of EM Waves</span></div>
+      <table><thead><tr><th>#</th><th>Student Name</th><th>Roll No.</th></tr></thead><tbody>
+        <tr><td>1</td><td>Tanmay Jasu</td><td>250102053</td></tr>
+        <tr><td>2</td><td>Ashutosh Mehta</td><td>250102052</td></tr>
+        <tr><td>3</td><td>Ankit Yadav</td><td>250104053</td></tr>
+        <tr><td>4</td><td>Ashish Kumar</td><td>250106042</td></tr>
+        <tr><td>5</td><td>Shubham</td><td>250106041</td></tr>
+        <tr><td>6</td><td>Nayem Sarkar</td><td>250104052</td></tr>
+      </tbody></table>
+      <div class="card-meta"><div class="meta-item"><span class="meta-icon">📍</span><span class="meta-venue"></span></div><div class="meta-item"><span class="meta-icon">🕑</span><span class="meta-time"></span></div></div>
+    </div>
+
+  </div><!-- end phy-grid -->
+</div><!-- end section-phy -->
+
+<footer>Section C &nbsp;·&nbsp; Presentation Schedule 2026 &nbsp;·&nbsp; English (22 Teams) · Physics (23 Teams)</footer>
 
 <script>
-  // Auto-mark cards as done based on today's date
-  (function () {
+  /* ── SCHEDULE CONFIGS ── */
+  const scheduleConfig = {
+    eng: {
+      "18/03/2026": { venue: "Room 12", time: "13:00 – 14:00" },
+      "25/03/2026": { venue: "Room 12", time: "13:00 – 14:00" },
+      "27/03/2026": { venue: "Room 12", time: "13:00 – 14:00" },
+      "01/04/2026": { venue: "Room 12", time: "13:00 – 14:00" },
+      "02/04/2026": { venue: "Room 12", time: "13:00 – 14:00" },
+      "06/04/2026": { venue: "Room 12", time: "14:00 – 15:00" },
+      "07/04/2026": { venue: "Room 12", time: "13:00 – 14:00" },
+      "08/04/2026": { venue: "Room 12", time: "13:00 – 14:00" },
+      "10/04/2026": { venue: "Room 12", time: "09:00 – 11:00" },
+      "14/04/2026": { venue: "Room 12", time: "13:00 – 14:00" },
+      "15/04/2026": { venue: "Room 12", time: "13:00 – 14:00" }
+    },
+    phy: {
+      "09/04/2026": { venue: "Room 12", time: "15:00 – 16:00" },
+      "10/04/2026": { venue: "Room 12", time: "14:00 – 15:00" },
+      "14/04/2026": { venue: "Room 12", time: "15:00 – 16:00" },
+      "15/04/2026": { venue: "Room 12", time: "15:00 – 16:00" },
+      "16/04/2026": { venue: "Room 12", time: "14:00 – 15:00" },
+      "17/04/2026": { venue: "Room 12", time: "14:00 – 15:00" }
+    }
+  };
+
+  /* ── CURRENT STATE ── */
+  let currentSubject = 'eng';
+  let currentDates = { eng: 'all', phy: 'all' };
+
+  /* ── POPULATE CARD META ── */
+  function populateCards() {
+    ['eng', 'phy'].forEach(subj => {
+      document.querySelectorAll(`.card[data-subject="${subj}"]`).forEach(card => {
+        const cfg = scheduleConfig[subj][card.dataset.date];
+        if (cfg) {
+          card.querySelector('.meta-venue').textContent = cfg.venue;
+          card.querySelector('.meta-time').textContent  = cfg.time;
+        }
+      });
+    });
+  }
+
+  /* ── AUTO-MARK PAST CARDS AS DONE ── */
+  function autoMarkDone() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     document.querySelectorAll('.card[data-date]').forEach(card => {
-      const parts = card.dataset.date.split('/');
-      const cardDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-      cardDate.setHours(0, 0, 0, 0);
+      const [d, m, y] = card.dataset.date.split('/');
+      const cardDate  = new Date(y, m - 1, d);
 
       if (cardDate < today) {
         card.classList.add('done');
-        // Add done badge if not already present
         const headLeft = card.querySelector('.card-head > div:first-child');
         if (!headLeft.querySelector('.done-badge')) {
           const badge = document.createElement('div');
@@ -1062,20 +1125,80 @@
         }
       }
     });
-  })();
-
-  function filter(date, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.card').forEach(card => {
-      if (date === 'all') {
-        card.classList.remove('hidden');
-      } else {
-        const d = card.dataset.date;
-        card.classList.toggle('hidden', d !== date);
-      }
-    });
   }
+
+  /* ── UPDATE STATS ── */
+  function updateStats(subj) {
+    const cards    = document.querySelectorAll(`.card[data-subject="${subj}"]`);
+    const done     = document.querySelectorAll(`.card[data-subject="${subj}"].done`);
+    document.getElementById(`${subj}-total-count`).textContent    = cards.length;
+    document.getElementById(`${subj}-done-count`).textContent     = done.length;
+    document.getElementById(`${subj}-upcoming-count`).textContent = cards.length - done.length;
+  }
+
+  /* ── UPDATE BANNER ── */
+  function updateBanner(subj, date) {
+    const venueEl = document.getElementById(`${subj}-venue-display`);
+    const timeEl  = document.getElementById(`${subj}-time-display`);
+
+    if (date === 'all') {
+      venueEl.textContent = subj === 'phy' ? 'Room 12' : 'Multiple Venues';
+      timeEl.textContent  = 'Varies by Date';
+    } else {
+      const cfg = scheduleConfig[subj][date];
+      if (cfg) {
+        venueEl.textContent = cfg.venue;
+        timeEl.textContent  = cfg.time;
+      }
+    }
+  }
+
+  /* ── FILTER ── */
+  function filter(subj, date, btn) {
+    currentDates[subj] = date;
+
+    // Update active button style
+    const activeClass = subj === 'eng' ? 'eng-active' : 'phy-active';
+    document.querySelectorAll(`#${subj}-filters .filter-btn`).forEach(b => {
+      b.classList.remove('eng-active', 'phy-active');
+    });
+    btn.classList.add(activeClass);
+
+    // Show/hide cards
+    document.querySelectorAll(`.card[data-subject="${subj}"]`).forEach(card => {
+      card.classList.toggle('hidden', date !== 'all' && card.dataset.date !== date);
+    });
+
+    updateBanner(subj, date);
+  }
+
+  /* ── SWITCH SUBJECT ── */
+  function switchSubject(subj) {
+    currentSubject = subj;
+
+    // Tab styles
+    document.getElementById('tab-eng').className = 'subject-tab' + (subj === 'eng' ? ' active-eng' : '');
+    document.getElementById('tab-phy').className = 'subject-tab' + (subj === 'phy' ? ' active-phy' : '');
+
+    // Section visibility
+    document.getElementById('section-eng').classList.toggle('visible', subj === 'eng');
+    document.getElementById('section-phy').classList.toggle('visible', subj === 'phy');
+
+    // Banner visibility
+    document.getElementById('banner-eng').style.display = subj === 'eng' ? 'flex' : 'none';
+    document.getElementById('banner-phy').style.display = subj === 'phy' ? 'flex' : 'none';
+
+    // Sync banner with current filter date
+    updateBanner(subj, currentDates[subj]);
+  }
+
+  /* ── INIT ── */
+  populateCards();
+  autoMarkDone();
+  updateStats('eng');
+  updateStats('phy');
+  updateBanner('eng', 'all');
+  updateBanner('phy', 'all');
 </script>
 </body>
 </html>
